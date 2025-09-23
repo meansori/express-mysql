@@ -1,0 +1,65 @@
+# role-categories
+GET     localhost:4000/api/v1/role-categories
+POST    localhost:4000/api/v1/role-categories
+{
+  "name": "admin",
+  "role" : 1
+}
+PATCH   localhost:4000/api/v1/role-categories/1
+{
+  "name": "admin",
+  "role" : 1
+}
+DELETE  localhost:4000/api/v1/role-categories/1
+
+------------------------------------------------------------
+
+# accounts
+GET     localhost:4000/api/v1/role-categories
+POST    localhost:4000/api/v1/role-categories
+{
+  "full_name": "admin",
+  "email" : "himeansori@gmail.com",
+  "password":"password123",
+  "role_id": 1
+}
+PATCH   localhost:4000/api/v1/role-categories/1
+{
+  "full_name": "admin pusat",
+  "email" : "himeansori@gmail.com",
+  "password":"password123",
+  "role_id": 1
+}
+DELETE  localhost:4000/api/v1/role-categories/1
+
+------------------------------------------------------------
+
+# participant categories
+GET     localhost:4000/api/v1/participant-categories
+POST    localhost:4000/api/v1/participant-categories
+{
+  "name": "pra nikah",
+  "detail" : "usia sma keatas sampai sebelum menikah"
+}
+PATCH   localhost:4000/api/v1/participant-categories/5
+{
+  "name": "pra nikah",
+  "detail" : "usia sma keatas sampai sebelum menikah"
+}
+DELETE  localhost:4000/api/v1/participant-categories/5
+
+------------------------------------------------------------
+
+# participant
+GET     localhost:4000/api/v1/participants
+POST    localhost:4000/api/v1/participants
+{
+  "name": "pra nikah",
+  "detail" : "usia sma keatas sampai sebelum menikah"
+}
+PATCH   localhost:4000/api/v1/participants/5
+{
+  "name": "pra nikah",
+  "detail" : "usia sma keatas sampai sebelum menikah"
+}
+DELETE  localhost:4000/api/v1/participants/5
