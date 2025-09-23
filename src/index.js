@@ -15,7 +15,10 @@ app.use(middlewareLogRequest);
 app.use(express.json());
 app.use(express.static("public/images"));
 
-app.use("/users", userRoutes);
+app.get("/api/v1/", (req, res) => {
+  res.send("Selamat datang di api app event management");
+});
+app.use("/api/v1/users", userRoutes);
 app.post("/upload", middlewareUpload.single("photo"), (req, res) => {
   res.json({
     msg: "Upload berhasil",
