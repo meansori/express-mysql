@@ -25,15 +25,15 @@ const updateParticipant = (body, id) => {
   return dbPool.execute(sqlQuery);
 };
 
-// const deleteAccount = (id) => {
-//   const sqlQuery = `DELETE FROM participants WHERE id = ${id}`;
+const deleteParticipant = (id) => {
+  const sqlQuery = `DELETE FROM participants WHERE id = ${id}`;
 
-//   return dbPool.execute(sqlQuery);
-// };
+  return dbPool.execute(sqlQuery);
+};
 
 module.exports = {
   getAllParticipants,
   createNewParticipant,
   updateParticipant,
-  // deleteAccount,
+  deleteParticipant,
 };

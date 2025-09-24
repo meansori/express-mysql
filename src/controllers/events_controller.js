@@ -1,10 +1,10 @@
-const userModel = require("../models/users");
+const eventsModel = require("../models/events_model");
 
-const getAllUsers = async (req, res) => {
+const getAllEvents = async (req, res) => {
   try {
-    const [data] = await userModel.getAllUser();
+    const [data] = await eventsModel.getAllEvents();
     res.status(200).json({
-      msg: "GET all users success",
+      msg: "GET all events success",
       data: data,
     });
   } catch (error) {
@@ -15,13 +15,13 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-const createNewUser = async (req, res) => {
+const createNewEvent = async (req, res) => {
   const { body } = req;
 
   try {
-    await userModel.createNewUser(body);
+    await eventsModel.createNewEvent(body);
     res.status(201).json({
-      msg: "CREATE new users success",
+      msg: "CREATE new events success",
       data: body,
     });
   } catch (error) {
@@ -32,16 +32,16 @@ const createNewUser = async (req, res) => {
   }
 };
 
-const updateUser = async (req, res) => {
+const updateEvent = async (req, res) => {
   const { body } = req;
-  const { idUser } = req.params;
+  const { id } = req.params;
 
   try {
-    await userModel.updateUser(body, idUser);
+    await eventsModel.updateEvent(body, id);
     res.status(201).json({
-      msg: "UPDATE new users success",
+      msg: "UPDATE events success",
       data: {
-        id: idUser,
+        id: id,
         ...body,
       },
     });
@@ -52,13 +52,14 @@ const updateUser = async (req, res) => {
     });
   }
 };
-const deleteUser = async (req, res) => {
-  const { idUser } = req.params;
+
+const deleteEvent = async (req, res) => {
+  const { id } = req.params;
 
   try {
-    await userModel.deleteUser(idUser);
+    await eventsModel.deleteEvent(id);
     res.status(200).json({
-      msg: "DELETE new users success",
+      msg: "DELETE events success",
       data: null,
     });
   } catch (error) {
@@ -70,8 +71,8 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
-  getAllUsers,
-  createNewUser,
-  updateUser,
-  deleteUser,
+  getAllEvents,
+  createNewEvent,
+  updateEvent,
+  deleteEvent,
 };

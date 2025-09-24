@@ -15,22 +15,22 @@ DELETE  localhost:4000/api/v1/role-categories/1
 ------------------------------------------------------------
 
 # accounts
-GET     localhost:4000/api/v1/role-categories
-POST    localhost:4000/api/v1/role-categories
+GET     localhost:4000/api/v1/accounts
+POST    localhost:4000/api/v1/accounts
 {
   "full_name": "admin",
   "email" : "himeansori@gmail.com",
   "password":"password123",
   "role_id": 1
 }
-PATCH   localhost:4000/api/v1/role-categories/1
+PATCH   localhost:4000/api/v1/accounts/1
 {
   "full_name": "admin pusat",
   "email" : "himeansori@gmail.com",
   "password":"password123",
   "role_id": 1
 }
-DELETE  localhost:4000/api/v1/role-categories/1
+DELETE  localhost:4000/api/v1/accounts/1
 
 ------------------------------------------------------------
 
@@ -38,15 +38,17 @@ DELETE  localhost:4000/api/v1/role-categories/1
 GET     localhost:4000/api/v1/participant-categories
 POST    localhost:4000/api/v1/participant-categories
 {
-  "name": "pra nikah",
-  "detail" : "usia sma keatas sampai sebelum menikah"
+   "full_name": "Muhammad Zakariya Ansori",
+      "address": "kiaracondong",
+      "category_id": 2
 }
-PATCH   localhost:4000/api/v1/participant-categories/5
+PATCH   localhost:4000/api/v1/participant-categories/1
 {
-  "name": "pra nikah",
-  "detail" : "usia sma keatas sampai sebelum menikah"
+   "full_name": "Muhammad Zakariya Ansori",
+      "address": "kiaracondong",
+      "category_id": 2
 }
-DELETE  localhost:4000/api/v1/participant-categories/5
+DELETE  localhost:4000/api/v1/participant-categories/1
 
 ------------------------------------------------------------
 
@@ -63,3 +65,62 @@ PATCH   localhost:4000/api/v1/participants/5
   "detail" : "usia sma keatas sampai sebelum menikah"
 }
 DELETE  localhost:4000/api/v1/participants/5
+
+------------------------------------------------------------
+
+# events
+GET     localhost:4000/api/v1/events
+POST    localhost:4000/api/v1/events
+{
+  "title": "pengajian remaja",
+  "description" : "usia smp",
+  "location" : "Masjid Nurul Hakim Lt 1",
+  "start_time" : "2025-09-28 08:00:00",
+  "end_time" : "2025-09-28 12:00:00",
+  "created_by":1
+}
+PATCH   localhost:4000/api/v1/events/2
+{
+  "title": "pengajian remaja",
+  "description" : "usia smp",
+  "location" : "Masjid Nurul Hakim Lt 1",
+  "start_time" : "2025-09-28 08:00:00",
+  "end_time" : "2025-09-28 12:00:00",
+  "created_by":1
+}
+DELETE  localhost:4000/api/v1/events/2
+
+------------------------------------------------------------
+
+# attendance_status
+GET     localhost:4000/api/v1/attendance_status
+POST    localhost:4000/api/v1/attendance_status
+{
+  "name": "Hadir"
+}
+PATCH   localhost:4000/api/v1/attendance_status/1
+{
+  "name": "Hadir"
+}
+DELETE  localhost:4000/api/v1/attendance_status/1
+
+------------------------------------------------------------
+
+# attendance
+GET     localhost:4000/api/v1/attendance
+POST    localhost:4000/api/v1/attendance
+{
+  "event_id": 2,
+      "participant_id":1,
+      "status_id": 1,
+      "check_in": "2025-09-10 07:45:00"
+}
+PATCH   localhost:4000/api/v1/attendance/1
+{
+  "event_id": 2,
+      "participant_id":1,
+      "status_id": 2,
+      "check_in": "2025-09-10 07:45:00"
+}
+DELETE  localhost:4000/api/v1/attendance/1
+

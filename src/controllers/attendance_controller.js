@@ -1,10 +1,10 @@
-const participantsModel = require("../models/participants_model");
+const attendanceModel = require("../models/attendance_model");
 
-const getAllParticipants = async (req, res) => {
+const getAllAttendance = async (req, res) => {
   try {
-    const [data] = await participantsModel.getAllParticipants();
+    const [data] = await attendanceModel.getAllAttendance();
     res.status(200).json({
-      msg: "GET all participants success",
+      msg: "GET all attendance success",
       data: data,
     });
   } catch (error) {
@@ -15,13 +15,13 @@ const getAllParticipants = async (req, res) => {
   }
 };
 
-const createNewParticipant = async (req, res) => {
+const createNewAttendance = async (req, res) => {
   const { body } = req;
 
   try {
-    await participantsModel.createNewParticipant(body);
+    await attendanceModel.createNewAttendance(body);
     res.status(201).json({
-      msg: "CREATE new participants success",
+      msg: "CREATE new attendance success",
       data: body,
     });
   } catch (error) {
@@ -32,14 +32,14 @@ const createNewParticipant = async (req, res) => {
   }
 };
 
-const updateParticipant = async (req, res) => {
+const updateAttendance = async (req, res) => {
   const { body } = req;
   const { id } = req.params;
 
   try {
-    await participantsModel.updateParticipant(body, id);
+    await attendanceModel.updateAttendance(body, id);
     res.status(201).json({
-      msg: "UPDATE participants success",
+      msg: "UPDATE attendance success",
       data: {
         id: id,
         ...body,
@@ -52,14 +52,13 @@ const updateParticipant = async (req, res) => {
     });
   }
 };
-
-const deleteParticipant = async (req, res) => {
+const deleteAttendance = async (req, res) => {
   const { id } = req.params;
 
   try {
-    await participantsModel.deleteParticipant(id);
+    await attendanceModel.deleteAttendance(id);
     res.status(200).json({
-      msg: "DELETE participants success",
+      msg: "DELETE attendance success",
       data: null,
     });
   } catch (error) {
@@ -71,8 +70,8 @@ const deleteParticipant = async (req, res) => {
 };
 
 module.exports = {
-  getAllParticipants,
-  createNewParticipant,
-  updateParticipant,
-  deleteParticipant,
+  getAllAttendance,
+  createNewAttendance,
+  updateAttendance,
+  deleteAttendance,
 };

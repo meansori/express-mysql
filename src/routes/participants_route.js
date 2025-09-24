@@ -12,6 +12,6 @@ router.get("/", participantsController.getAllParticipants);
 router.patch("/:id", participantsController.updateParticipant);
 
 //DELETE - DELETE
-// router.delete("/:id", participantsController.deleteAccount);
+router.delete("/:id", participantsController.deleteParticipant);
 
 module.exports = router;
