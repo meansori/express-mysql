@@ -1,7 +1,17 @@
 const dbPool = require("../config/database");
 
 const getAllAttendance = () => {
-  const sqlQuery = `SELECT * FROM attendance `;
+  const sqlQuery = `SELECT 
+                    events.title as event_name,
+                    participants.full_name as full_name,
+                    attendance_status.name as status,
+                    attendance.check_in as check_in
+
+                    FROM attendance
+                    join events on attendance.event_id = events.id
+                    join participants on attendance.participant_id = participants.id
+                    join attendance_status on attendance.status_id = attendance_status.id
+                    `;
 
   return dbPool.execute(sqlQuery);
 };

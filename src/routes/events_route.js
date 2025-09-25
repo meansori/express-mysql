@@ -7,6 +7,7 @@ router.post("/", eventsController.createNewEvent);
 
 //READ - GET
 router.get("/", eventsController.getAllEvents);
+router.get("/:id", eventsController.getEventById);
 
 //UPDATE - PATCH
 router.patch("/:id", eventsController.updateEvent);

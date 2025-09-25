@@ -5,6 +5,7 @@ require("dotenv").config();
 const PORT = process.env.APP_PORT || 4000;
 const HOST = process.env.APP_HOST || "localhost";
 
+const dashboardRoute = require("./routes/dashboard_route");
 const roleCategoriesRoute = require("./routes/role_categories_route");
 const accountsRoute = require("./routes/accounts_route");
 const participantCategoriesRoute = require("./routes/participant_categories_route");
@@ -23,19 +24,19 @@ app.use(middlewareLogRequest);
 app.use(express.json());
 app.use(express.static("public/images"));
 
-// Tambahkan CORS supaya React bisa akses
 app.use(
   cors({
-    origin: "http://localhost:3000", // ganti dengan domain frontend kamu
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // 👈 penting
     credentials: true,
   })
 );
 
 // Routes
-app.get("/api/v1/", (req, res) => {
-  res.send("Selamat datang di api app event management");
-});
+// app.get("/api/v1/", (req, res) => {
+//   res.send("Selamat datang di api app event management");
+// });
+app.use("/api/v1/dashboard", dashboardRoute);
 app.use("/api/v1/role-categories", roleCategoriesRoute);
 app.use("/api/v1/accounts", accountsRoute);
 app.use("/api/v1/participant-categories", participantCategoriesRoute);

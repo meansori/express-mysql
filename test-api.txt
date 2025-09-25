@@ -1,10 +1,13 @@
+# dashboard
+GET     localhost:4000/api/v1/dashboard
+
 # role-categories
 GET     localhost:4000/api/v1/role-categories
 POST    localhost:4000/api/v1/role-categories
 {
   "name": "admin",
   "role" : 1
-}
+} 
 PATCH   localhost:4000/api/v1/role-categories/1
 {
   "name": "admin",
@@ -70,6 +73,7 @@ DELETE  localhost:4000/api/v1/participants/5
 
 # events
 GET     localhost:4000/api/v1/events
+GET     localhost:4000/api/v1/events/2
 POST    localhost:4000/api/v1/events
 {
   "title": "pengajian remaja",
@@ -110,14 +114,14 @@ DELETE  localhost:4000/api/v1/attendance_status/1
 GET     localhost:4000/api/v1/attendance
 POST    localhost:4000/api/v1/attendance
 {
-  "event_id": 2,
+      "event_id": 2,
       "participant_id":1,
       "status_id": 1,
       "check_in": "2025-09-10 07:45:00"
 }
 PATCH   localhost:4000/api/v1/attendance/1
 {
-  "event_id": 2,
+      "event_id": 2,
       "participant_id":1,
       "status_id": 2,
       "check_in": "2025-09-10 07:45:00"

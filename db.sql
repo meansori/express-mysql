@@ -61,6 +61,6 @@ CREATE TABLE attendance (
     check_in DATETIME NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
-    FOREIGN KEY (participant_id) REFERENCES participants(id) ON DELETE CASCADE,
+    FOREIGN KEY (participant_id) REFERENCES participant_id(id) ON DELETE CASCADE,
     FOREIGN KEY (status_id) REFERENCES attendance_status(id)
 );

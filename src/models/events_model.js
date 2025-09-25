@@ -1,7 +1,23 @@
 const dbPool = require("../config/database");
 
 const getAllEvents = () => {
-  const sqlQuery = `SELECT * FROM events `;
+  const sqlQuery = `SELECT 
+        e.id,
+        e.title,
+        e.description,
+        e.location,
+        e.start_time,
+        e.end_time,
+        e.created_at,
+        e.created_by
+      FROM events e
+      JOIN accounts a ON e.created_by = a.id
+                    `;
+
+  return dbPool.execute(sqlQuery);
+};
+const getEventById = (id) => {
+  const sqlQuery = `SELECT * FROM events WHERE id = ${id} `;
 
   return dbPool.execute(sqlQuery);
 };
@@ -39,4 +55,5 @@ module.exports = {
   createNewEvent,
   updateEvent,
   deleteEvent,
+  getEventById,
 };
