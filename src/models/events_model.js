@@ -1,59 +1,88 @@
 const dbPool = require("../config/database");
 
+/**
+ * ✅ Ambil semua event
+ */
 const getAllEvents = () => {
-  const sqlQuery = `SELECT 
-        e.id,
-        e.title,
-        e.description,
-        e.location,
-        e.start_time,
-        e.end_time,
-        e.created_at,
-        e.created_by
-      FROM events e
-      JOIN accounts a ON e.created_by = a.id
-                    `;
-
+  const sqlQuery = `
+    SELECT 
+      *
+    FROM events e
+    ORDER BY e.start_time DESC
+  `;
   return dbPool.execute(sqlQuery);
 };
+
+/**
+ * ✅ Ambil event berdasarkan ID
+ */
 const getEventById = (id) => {
-  const sqlQuery = `SELECT * FROM events WHERE id = ${id} `;
-
-  return dbPool.execute(sqlQuery);
+  const sqlQuery = `SELECT * FROM events WHERE id = ?`;
+  return dbPool.execute(sqlQuery, [id]);
 };
 
-const createNewEvent = (body) => {
-  const sqlQuery = `INSERT INTO events (title,description,location,start_time,end_time,created_by)
-                    VALUES ('${body.title}','${body.description}','${body.location}','${body.start_time}','${body.end_time}',${body.created_by})`;
+/**
+ * ✅ Tambahkan event baru
+ * - Sudah pakai prepared statement
+ * - Ada validasi sederhana
+ */
+const createNewEvent = async (body) => {
+  const { title, description, location, start_time, end_time, created_by } = body;
 
-  return dbPool.execute(sqlQuery);
+  // 🛑 Validasi dasar sebelum query
+  if (!title || !location || !start_time || !end_time) {
+    throw new Error("Field wajib tidak boleh kosong");
+  }
+
+  const sqlQuery = `
+    INSERT INTO events 
+      (title, description, location, start_time, end_time)
+    VALUES (?, ?, ?, ?, ?)
+  `;
+
+  const values = [title, description, location, start_time, end_time];
+  return dbPool.execute(sqlQuery, values);
 };
 
-const updateEvent = (body, id) => {
-  const sqlQuery = `UPDATE events
-                    SET
-                    title = '${body.title}',
-                    description = '${body.description}',
-                    location = '${body.location}',
-                    start_time = '${body.start_time}',
-                    end_time = '${body.end_time}',
-                    created_by = ${body.created_by}
-                    WHERE id = ${id}
-                    `;
+/**
+ * ✅ Update event berdasarkan ID
+ * - Aman dari injection
+ * - Cek semua field
+ */
+const updateEvent = async (body, id) => {
+  const { title, description, location, start_time, end_time } = body;
 
-  return dbPool.execute(sqlQuery);
+  if (!title || !location || !start_time || !end_time) {
+    throw new Error("Field wajib tidak boleh kosong");
+  }
+
+  const sqlQuery = `
+    UPDATE events
+    SET
+      title = ?,
+      description = ?,
+      location = ?,
+      start_time = ?,
+      end_time = ?
+    WHERE id = ?
+  `;
+
+  const values = [title, description, location, start_time, end_time, id];
+  return dbPool.execute(sqlQuery, values);
 };
 
+/**
+ * ✅ Hapus event
+ */
 const deleteEvent = (id) => {
-  const sqlQuery = `DELETE FROM events WHERE id = ${id}`;
-
-  return dbPool.execute(sqlQuery);
+  const sqlQuery = `DELETE FROM events WHERE id = ?`;
+  return dbPool.execute(sqlQuery, [id]);
 };
 
 module.exports = {
   getAllEvents,
+  getEventById,
   createNewEvent,
   updateEvent,
   deleteEvent,
-  getEventById,
 };
