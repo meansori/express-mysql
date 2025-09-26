@@ -1,20 +1,11 @@
 const jwt = require("jsonwebtoken");
 const Auth = require("../models/auth_model");
-
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key-event-management";
+require("dotenv").config(); // ⬅️ tambahkan jika belum ada di server.js
 
 const authMiddleware = {
   // Generate JWT Token
   generateToken: (user) => {
-    return jwt.sign(
-      {
-        id: user.id,
-        email: user.email,
-        role_id: user.role_id,
-      },
-      JWT_SECRET,
-      { expiresIn: "24h" }
-    );
+    return jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1d" });
   },
 
   // Verify JWT Token Middleware
@@ -29,7 +20,8 @@ const authMiddleware = {
         });
       }
 
-      const decoded = jwt.verify(token, JWT_SECRET);
+      // ✅ Gunakan process.env.JWT_SECRET langsung
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await Auth.verifyToken(decoded.id);
 
       if (!user) {
@@ -42,6 +34,7 @@ const authMiddleware = {
       req.user = user;
       next();
     } catch (error) {
+      console.error("JWT Verify Error:", error.message); // 🔎 untuk debugging
       return res.status(401).json({
         success: false,
         message: "Token is invalid or expired.",
